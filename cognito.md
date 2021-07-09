@@ -48,3 +48,16 @@ Remeber the key distinction is not whether the Identity Provider is internal or 
 
 
 Resources: https://thenewstack.io/understanding-aws-cognito-user-and-identity-pools-for-serverless-apps/
+
+## Cognito Design
+Pricing
+
+-  User Pool has a free tier of 50,000 MAU (Monthly Active Users) and 50 MAUs for users federated through SAML 2.0 based identity providers. 
+For users signing in with credentials from a user pool or with social idenity providers like googe, twitter, there are volume based pricing tiers for MAUs above the free tier.
+
+|Pricing Tier (MAUs) | Price per MAU|
+|--------------------|--------------|
+|50,001-100,000 (after the 50,000 free tier)|	$0.0055|
+|Next 900,000	|$0.0046|
+|Next 9,000,000	|$0.00325|
+|Greater than 10,000,000|$0.0025|
