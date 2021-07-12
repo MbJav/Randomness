@@ -71,7 +71,19 @@ For users signing in with credentials from a user pool or with social idenity pr
 - should other attributes be added/collected when a user joins. (State they belong to?)
 - what is AWS cloud formation?
     - service that helps you model and set up your amazon web services reousrces so that youcan spend less time managing those resources and more time focusing on your applications that run in AWS. 
+- what happens after user has verified and token has expired? How will they
+"sign in" again
 
-### Things to remember/learned
+### Things to remember
 - When setting up phone numbers, need to include +\<areacode> (remember for when you ask Derrick for list of alpha users)
-- 
+- need to create an access key + secret access key, this should ideally be tied to a role or a group that the whole team has access to
+- when developing locally, need to create a local aws credentials file. Check in with Tucker to see if this is recommended practice
+https://docs.aws.amazon.com/ses/latest/DeveloperGuide/create-shared-credentials-file.html 
+
+### Things I learned
+- Need to specify the region when using AWS go sdk. There is no default region
+- When User Pool was created, a policy was generated with that user pool (this may have had to been specified somewhere, need to double check when recreating). If developer is testing locally with their own access keys, the policy needs to be added to the user. Follow 
+https://stackoverflow.com/a/67678111 
+
+Cognito Power User configurations
+https://console.aws.amazon.com/iam/home#/policies/arn:aws:iam::aws:policy/AmazonCognitoPowerUser$jsonEditor
