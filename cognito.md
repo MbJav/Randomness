@@ -25,7 +25,7 @@ Amazon Web Services' service for managing user authentication and access control
 
 **User Pools** provide a user directory for your application including sign-up, sign-in, group management, etc. Also provide app with info on user's ID and group membership so that your code can handle authorization. 
 
-**Identity Pools** are used to assign IAM roles to users who authenticate through a separate Identiy Provider. Because these users are assigned an IAM role, they can have their own set of IAM pemrissions, allowing them to access AWS resources directly. 
+**Identity Pools** are used to assign IAM roles to users who authenticate through a separate Identiy Provider. Because these users are assigned an IAM role, they can have their own set of IAM permissions, allowing them to access AWS resources directly. 
 
 - map a user from an Identity Provider to an IAM Role, allow you to delegate authorization for AWS resources to AWS itself 
 
@@ -61,3 +61,17 @@ For users signing in with credentials from a user pool or with social idenity pr
 |Next 900,000	|$0.0046|
 |Next 9,000,000	|$0.00325|
 |Greater than 10,000,000|$0.0025|
+
+### Questions
+- Difference between a group and a IAM role
+- How many groups should we have. Initial thoughts
+    - user
+    - admin (devs, analysts, etc)
+    - super-admin (manager-level) 
+- should other attributes be added/collected when a user joins. (State they belong to?)
+- what is AWS cloud formation?
+    - service that helps you model and set up your amazon web services reousrces so that youcan spend less time managing those resources and more time focusing on your applications that run in AWS. 
+
+### Things to remember/learned
+- When setting up phone numbers, need to include +\<areacode> (remember for when you ask Derrick for list of alpha users)
+- 
