@@ -48,6 +48,7 @@ Remeber the key distinction is not whether the Identity Provider is internal or 
 
 
 Resources: https://thenewstack.io/understanding-aws-cognito-user-and-identity-pools-for-serverless-apps/
+https://labrlearning.medium.com/a-detailed-look-at-aws-cognito-da19b1dd0fba
 
 ## Cognito Design
 Pricing
@@ -73,6 +74,7 @@ For users signing in with credentials from a user pool or with social idenity pr
     - service that helps you model and set up your amazon web services reousrces so that youcan spend less time managing those resources and more time focusing on your applications that run in AWS. 
 - what happens after user has verified and token has expired? How will they
 "sign in" again
+- what happens if a user loses their phone number or buys a new phone number? My guess should be able to authenticate with email as a second option
 
 ### Things to remember
 - When setting up phone numbers, need to include +\<areacode> (remember for when you ask Derrick for list of alpha users)
@@ -84,6 +86,43 @@ https://docs.aws.amazon.com/ses/latest/DeveloperGuide/create-shared-credentials-
 - Need to specify the region when using AWS go sdk. There is no default region
 - When User Pool was created, a policy was generated with that user pool (this may have had to been specified somewhere, need to double check when recreating). If developer is testing locally with their own access keys, the policy needs to be added to the user. Follow 
 https://stackoverflow.com/a/67678111 
+- AWS doesn't spport passwordless authentication so a custom auth flow must be created :D. 
+- When developing with Amazon SNS in sandbox mode, a verified phone number needs to be set 
+https://aws.amazon.com/blogs/compute/introducing-the-sms-sandbox-for-amazon-sns/ 
 
 Cognito Power User configurations
 https://console.aws.amazon.com/iam/home#/policies/arn:aws:iam::aws:policy/AmazonCognitoPowerUser$jsonEditor
+
+## Cognito Custom Auth Flow for Passwordless Authentication
+On the basics of passworldless authentication via SMS for example
+https://itnext.io/passwordless-sms-authentication-the-basics-fdf9dbecab04
+
+An implimentation with Amazon Cognito
+https://itnext.io/passwordless-sms-authentication-backend-9932391c49dc
+
+User signs in witb phone number, receives a text with a code, enters code in app to authenticate.
+If first time, user account is created, if not they are authenticated and will use existing unique identity ID provided
+by identity provider (in our case amazon cognito user pools)
+
+### Custom AUth Challenge Flow
+First thing first what is challenge response authentication?
+Challenge response authentication mechanism (CRAM) are a group of protocols in which one side presents a challenge to be answered and the other side must present a correct answer to be checked or validated to be authenticated. 
+
+Example sof how CRAM is executed: CAPTCHA, SSH, Password, Biometrics like finger scan 
+
+- Define Auth Challenge lamdba function determines which custom challenge needs to be created and verifies that challenge is successfuly answered and no other challenges are needed. 
+- Create Auth Challenge lamdba functions generates a secret login code and sends this code to user mobile device via SMS
+- Verify Auth Challenge Response lamdba function responsible for verifying the users response when they input the passcode they received via SMS onto app. 
+
+1. user enter phone number on sign in page which gets sent to amazon cognito user pool
+2. user pool calls define auth challenge lamdba function
+3. user pool calls create auth challenge function to generate login code to send via SMS to user
+3. user retrives code on phone and enters on sign in page. User pool calls verify auth chalnnge function to verify user response. 
+5. user pool calls define auth challenge function to verify challenge has been successfully answered and no further challenege is needed. The user pool then considers user to be authenticated and sends valid JSON Web Token in final response. 
+
+More on these 3 challenges via AWS
+https://docs.aws.amazon.com/cognito/latest/developerguide/amazon-cognito-user-pools-authentication-flow.html#amazon-cognito-user-pools-custom-authentication-flow
+
+TODO
+- will need to come up with custom sign in page
+- need to use Amazon SNS to send the passcodes https://us-east-1.console.aws.amazon.com/sns/v3/home?region=us-east-1#/mobile/text-messaging
