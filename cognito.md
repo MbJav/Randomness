@@ -81,6 +81,7 @@ For users signing in with credentials from a user pool or with social idenity pr
 - need to create an access key + secret access key, this should ideally be tied to a role or a group that the whole team has access to
 - when developing locally, need to create a local aws credentials file. Check in with Tucker to see if this is recommended practice
 https://docs.aws.amazon.com/ses/latest/DeveloperGuide/create-shared-credentials-file.html 
+https://medium.com/@gmonne/custom-authentication-using-aws-cognito-e0b489badc3f 
 
 ### Things I learned
 - Need to specify the region when using AWS go sdk. There is no default region
@@ -99,6 +100,7 @@ https://itnext.io/passwordless-sms-authentication-the-basics-fdf9dbecab04
 
 An implimentation with Amazon Cognito
 https://itnext.io/passwordless-sms-authentication-backend-9932391c49dc
+https://techinscribed.com/passwordless-phone-number-authentication-using-aws-amplify-cognito/
 
 User signs in witb phone number, receives a text with a code, enters code in app to authenticate.
 If first time, user account is created, if not they are authenticated and will use existing unique identity ID provided
@@ -122,6 +124,9 @@ Example sof how CRAM is executed: CAPTCHA, SSH, Password, Biometrics like finger
 
 More on these 3 challenges via AWS
 https://docs.aws.amazon.com/cognito/latest/developerguide/amazon-cognito-user-pools-authentication-flow.html#amazon-cognito-user-pools-custom-authentication-flow
+https://dev.to/duarten/passwordless-authentication-with-cognito-13c 
+https://itnext.io/passwordless-sms-authentication-backend-9932391c49dc 
+https://www.antstack.io/blog/otp-based-phone-auth-amazon-cognito-amplify/ (with AMplify)
 
 TODO
 - will need to come up with custom sign in page
