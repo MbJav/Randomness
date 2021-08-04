@@ -29,7 +29,7 @@ Amazon Web Services' service for managing user authentication and access control
 
 - map a user from an Identity Provider to an IAM Role, allow you to delegate authorization for AWS resources to AWS itself 
 
-User Pools by themselves don't deal with permission at the IAM-level. Rather they provide information like group memebeship and the user's ID to your app, so you can deal with authorization yourself. 
+User Pools by themselves don't deal with permission at the IAM-level. Rather they provide information like group membership and the user's ID to your app, so you can deal with authorization yourself. 
 
 Identiy Pools in contrast grant users permisssions at the IAM level.  This means that idenity pools allows for more granular set of permission with respect to AWS services. 
 Remember main purpose of an idenity pool is to map user from an idenity provider to an IAM role. It does not have its on user directory, it just assigns users from other user directories to an IAM role in your AWS environment. 
@@ -128,6 +128,22 @@ https://dev.to/duarten/passwordless-authentication-with-cognito-13c
 https://itnext.io/passwordless-sms-authentication-backend-9932391c49dc 
 https://www.antstack.io/blog/otp-based-phone-auth-amazon-cognito-amplify/ (with AMplify)
 
+### User Pool App Client
+an app is an entity within user pool that has the permission to call unathenticated API operations such as signing in, signing up and handling forgotten passwords. 
+
+When a user signs into your app, cognito verifies login info. If login info is correct, AWS Cognito will create a session, and returns an ID, access and refresh token for the authenticated user. 
+
 TODO
 - will need to come up with custom sign in page
 - need to use Amazon SNS to send the passcodes https://us-east-1.console.aws.amazon.com/sns/v3/home?region=us-east-1#/mobile/text-messaging
+
+### Commands
+- to Auto-confirm/signup a user
+```
+aws admin-confirm-sign-up
+--user-pool-id <value>
+--username <value>
+[--client-metadata <value>]
+[--cli-input-json <value>]
+[--generate-cli-skeleton <value>]
+```
